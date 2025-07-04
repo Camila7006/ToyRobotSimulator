@@ -1,5 +1,7 @@
 package simulator;
 
+// Position ska göras om så att den även tar in direction 
+
 public class Position {
     private int x;
     private int y;

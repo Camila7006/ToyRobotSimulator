@@ -61,13 +61,16 @@ public class Robot {
         }
     }
 
-    public Position getPosition() {
-        return placed ? pos : null;
-    }
-
-    public Direction getDirection() {
-        return dir;
-    }
+    /*
+     * public Position getPosition() {
+     * return placed ? pos : null;
+     * }
+     * 
+     * public Direction getDirection() {
+     * return dir;
+     * }
+     * 
+     */
 
     public boolean isPlaced() {
         return placed;
