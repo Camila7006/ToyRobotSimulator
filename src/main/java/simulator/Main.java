@@ -9,26 +9,21 @@ public class Main {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing input file");
         }
-
+        String filename = args[0];
         Table table = new Table(10, 10);
         Robot robot = new Robot();
-        Simulator sim = new Simulator(table, robot);
+        CommandProcessor processor = new CommandProcessor(table, robot);
 
-        run(args[0], sim);
-    }
-
-    static void run(String filename, Simulator simulator) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String output = simulator.execute(line);
+                String output = processor.execute(line);
 
                 if (output != null) {
                     System.out.println(output);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
             System.err.println("Error reading file" + e.getMessage());
         }
     }

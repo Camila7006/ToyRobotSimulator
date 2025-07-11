@@ -16,8 +16,12 @@ public class Robot {
 
     }
 
+    private boolean isReady() {
+        return placed && pos != null && dir != null;
+    }
+
     public Position getNextPosition() {
-        if (!placed || pos == null || dir == null)
+        if (!isReady())
             return null;
         int x = pos.getX();
         int y = pos.getY();
@@ -42,35 +46,24 @@ public class Robot {
 
     // method moves one step ahead if placed=true and within limit
     public void move(Position next) {
-        if (!placed || next == null)
+        if (!isReady() || next == null)
             return;
         pos = next;
     }
 
     // rotetes robot 90° to the right
     public void right() {
-        if (placed && dir != null) {
+        if (isReady()) {
             dir = dir.right();
         }
     }
 
     // rotates robot 90° to the left
     public void left() {
-        if (placed && dir != null) {
+        if (isReady()) {
             dir = dir.left();
         }
     }
-
-    /*
-     * public Position getPosition() {
-     * return placed ? pos : null;
-     * }
-     * 
-     * public Direction getDirection() {
-     * return dir;
-     * }
-     * 
-     */
 
     public boolean isPlaced() {
         return placed;
@@ -78,7 +71,7 @@ public class Robot {
 
     // Prints out X, Y position and direction in terminal
     public String report() {
-        if (!placed || pos == null || dir == null)
+        if (!isReady())
             return null;
 
         return pos + "," + dir;
