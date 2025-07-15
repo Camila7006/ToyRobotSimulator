@@ -23,7 +23,7 @@ public class CommandProcessor {
         String[] parts = line.split("\\s+", 2);
         String cmd = parts[0].toUpperCase(Locale.ROOT);
 
-        if (cmd.equals("PLACE")) {
+        if ("PLACE".equals(cmd)) {
             handlePlace(parts);
             return null;
         }
@@ -34,27 +34,37 @@ public class CommandProcessor {
         switch (cmd) {
             case "MOVE":
                 handleMove();
+                break;
             case "LEFT":
                 robot.left();
+                break;
             case "RIGHT":
                 robot.right();
+                break;
             case "REPORT":
                 return robot.report();
             default:
+                // ignore unknown commando
+                break;
         }
         return null;
     }
 
     private void handlePlace(String[] parts) {
-        if (parts.length < 2)
+        if (parts.length < 2) {
             return;
+        }
         String[] args = parts[1].split(",");
+        if (args.length != 3) {
+            return;
+        }
         try {
             int x = Integer.parseInt(args[0].trim());
             int y = Integer.parseInt(args[1].trim());
             Direction d = Direction.valueOf(args[2].trim().toUpperCase(Locale.ROOT));
-            if (table.isValid(x, y))
+            if (table.isValid(x, y)) {
                 robot.place(x, y, d);
+            }
         } catch (IllegalArgumentException e) {
 
         }
@@ -64,7 +74,7 @@ public class CommandProcessor {
     private void handleMove() {
         Position next = robot.getNextPosition();
         if (next != null && table.isValid(next.getX(), next.getY())) {
-
+            robot.move(next);
         }
     }
 

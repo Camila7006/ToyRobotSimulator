@@ -1,5 +1,7 @@
 package simulator;
 
+import java.util.Objects;
+
 // Position ska göras om så att den även tar in direction 
 
 public class Position {
@@ -30,6 +32,21 @@ public class Position {
     @Override
     public String toString() {
         return x + "," + y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Position))
+            return false;
+        Position other = (Position) o;
+        return this.x == other.x && this.y == other.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
 }

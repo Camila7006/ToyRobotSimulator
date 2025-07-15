@@ -1,4 +1,4 @@
-package simulator; 
+package simulator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,22 +6,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RobotTest {
 
-    private Robot robot; 
+    private Robot robot;
+
+    @BeforeEach
     void setUp() {
         robot = new Robot();
     }
 
-    @Testvoid testPlaceAndReport(){
+    @Test
+    void testPlaceAndReport() {
         assertNull(robot.report());
-        robot.place(1,2,Direction.NORTH);
-        assertEquals("1,2,NORTH",robot,report());
+        robot.place(1, 2, Direction.NORTH);
+        assertEquals("1,2,NORTH", robot.report());
     }
 
     @Test
     void testMoveAndDirection() {
         robot.place(0, 0, Direction.EAST);
         Position next = robot.getNextPosition();
-        assertEquals(new Position(1, 0), next);
+        assertNotNull(next);
+        assertEquals(1, next.getX());
+        assertEquals(0, next.getY());
         robot.move(next);
         assertEquals("1,0,EAST", robot.report());
     }
